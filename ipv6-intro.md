@@ -1,4 +1,4 @@
-% IPv6 Intro
+% IPv6 Introduction
 % Theo Baschak
 % SkullSpace Hackathon
 
@@ -94,6 +94,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	Stands for Unique Local IPv6 Unicast Addresses.
 *	Similar to RFC1918 addresses, for use within LANs and/or isolated/non-connected networks.
 *	Supposed to be generated using a specific algorithm, they are guaranteed of being somewhat globally unique as well.
+	*	[SiXXs ULA Generator](https://www.sixxs.net/tools/grh/ula/)
 
 # FreeBSD Server
 
