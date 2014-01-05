@@ -1,6 +1,6 @@
 SRCS		= ipv6-intro.md
 PDFOBJS		= $(SRCS:.md=.pdf)
-SLIDEOBJS	= $(SRCS:.md=-slides.html)
+SLIDEOBJS	= $(SRCS:.md=.html)
 PANDOC		= pandoc
 #PFLAGS		= -V geometry:margin=0.5in
 PFLAGS		= -t beamer
