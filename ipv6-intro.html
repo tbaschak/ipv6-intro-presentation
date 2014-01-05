@@ -158,6 +158,28 @@
 <li>Supposed to be generated using a specific algorithm, they are guaranteed of being somewhat globally unique as well.</li>
 </ul>
 </section>
+<section id="freebsd-server" class="slide level1">
+<h1>FreeBSD Server</h1>
+<ul>
+<li><p><code>/etc/rc.conf</code> snippet</p>
+<pre><code>ifconfig_em0_ipv6=&quot;inet6 2604:4280:d00d::443/64&quot;
+ipv6_defaultrouter=&quot;2604:4280:d00d::1&quot;</code></pre></li>
+<li>In FreeBSD <code>ipv6_enable=“yes”</code> is required to enable SLAAC.</li>
+<li><p>SLAAC addresses can cause issues for mail and other servers where outbound traffic is expected to originate from a specific address.</p></li>
+</ul>
+</section>
+<section id="debian-server" class="slide level1">
+<h1>Debian Server</h1>
+<ul>
+<li><p><code>/etc/network/interfaces</code> snippet</p>
+<pre><code>iface eth0 inet6 static
+address 2604:4280:D00D::78
+gateway 2604:4280:D00D::1
+netmask 64
+pre-up echo 0 &gt; /proc/sys/net/ipv6/conf/$IFACE/autoconf</code></pre></li>
+<li><p>The pre-up command disables SLAAC (where required).</p></li>
+</ul>
+</section>
 <section id="resources" class="slide level1">
 <h1>Resources</h1>
 <ul>
