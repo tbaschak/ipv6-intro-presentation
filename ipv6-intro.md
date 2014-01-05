@@ -73,7 +73,8 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	SLAAC uses Neighbor Discovery, ICMPv6 RA discovery, to autoconfigure addresses.
 *	DHCPv6 does not currently send a default gateway, so SLAAC/RA is still required.
 *	IPv4 untrusted layer 2 issues have followed to IPv6.
-	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6
+	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6.
+	*	DHCP Snooping -&gt; RA Guard in switches to mitigate.
 
 # IPv4 vs IPv6 Subnets
 
@@ -125,10 +126,10 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	More info at: http://www.ripe.net/ripe/docs/ripe-554
 *	BIG GIANT list at: http://ipv6now.com.au/RFC.php
 
-# Questions
+# Questions / End
 
 *	Question & Answer period as time permits.
 
-# The End
+. . .
 
-Presentation source/download available at [github.com/tbaschak/ipv6-intro-presentation](https://github.com/tbaschak/ipv6-intro-presentation)
+*	Presentation source/download available at [github](https://github.com/tbaschak/ipv6-intro-presentation)
