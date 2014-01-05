@@ -9,25 +9,32 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 
 # Who I Am
 
-*	Employed by VOI Network Solutions -- primary administrator of Winnipeg-based commercial Internet Service Provider and carrier.
-*	Avid opensource software user/fanatic, and recently, contributor.
+*	Primary Network Administrator of VOI Network Solutions -- Winnipeg-based commercial Internet Service Provider and carrier.
 *	Involved with both Internet Exchanges in Winnipeg.
-	*	Elected member on the Board of Directors for the Manitoba Internet Exchange (MBIX).
-	*	Also involved with the creation and technical operations of the Winnipeg Internet Exchange (WpgIX).
+	*	Elected member on the Board of Directors for MBIX.
+	*	Also involved with the creation and technical operations of WpgIX.
+*	Avid opensource software user/fanatic, and recently, contributor.
 
-# My IPv6 Experience
+# My Own IPv6 Experience
 
-*	Running IPv6 since 2004
-	*	Over tunnels for many, many years up until getting native IPv6
-	*	Native IPv6 since December 2012, via Voi Networks BGP address space
-*	My internal network currently runs OSPFv3 (IPv6 OSPF)
+*	Running IPv6 since ~2004.
+	*	Over tunnels for many, many years.
+	*	Native IPv6 since December 2012, via Voi Networks BGP address space.
+*	My internal network currently runs OSPFv3 (IPv6 OSPF).
 	*	2604:4280:d00d::/48
 
 # IPv6 Address Basics
 
 *	The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.
 *	Like IPv4, Network and Host bits.
-*	Unlike IPv4, Network and Host bits are usually equal (at least on a /64 network)
+*	Unlike IPv4, Network and Host bits are usually equal (at least on a /64 network).
+
+# IPv6 Address Sample
+
+*	My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1
+	*	Prefix: 2604:4280:d00d
+	*	Network: $Prefix:202
+	*	Host: 1986:feb8:ccb0:78e1
 
 # rfc4291: IPv6 Addressing
 
@@ -46,6 +53,24 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	2001:0DB8::CD30:0:0:0:0/60
 	*	2001:0DB8:0:CD30::/60
 	*	::/0
+
+# ARP -> ND (rfc4861)
+
+*	Uses link-layer multicast instead of broadcast.
+*	Subcomponents include
+	*	Address Resolution
+	*	Duplicated Address Detection
+	*	Neighbor Unreachability Detection
+*	Makes use of a number of predefined multicast addresses (much like routing protocols)
+	*	all-nodes (FF02::1)
+	*	all-routers (FF02::2)
+*	
+
+# DHCP -> RA / DHCPv6
+
+*	DHCP for autoconfiguration has been replaced with SLAAC, and/or DHCPv6.
+*	IPv4 untrusted layer 2 issues have followed to IPv6.
+	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6
 
 # IPv6 Subnetting vs IPv4
 
