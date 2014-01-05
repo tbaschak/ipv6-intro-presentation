@@ -95,6 +95,32 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	Similar to RFC1918 addresses, for use within LANs and/or isolated/non-connected networks.
 *	Supposed to be generated using a specific algorithm, they are guaranteed of being somewhat globally unique as well.
 
+# FreeBSD Server
+
+*	<code>/etc/rc.conf</code> snippet
+
+	```
+ifconfig_em0_ipv6="inet6 2604:4280:d00d::443/64"
+ipv6_defaultrouter="2604:4280:d00d::1"
+```
+
+*	In FreeBSD <code>ipv6_enable="yes"</code> is required to enable SLAAC.
+*	SLAAC addresses can cause issues for mail and other servers where outbound traffic is expected to originate from a specific address.
+
+# Debian Server
+
+*	<code>/etc/network/interfaces</code> snippet
+
+	```
+iface eth0 inet6 static
+	address 2604:4280:D00D::78
+	gateway 2604:4280:D00D::1
+	netmask 64
+	pre-up echo 0 > /proc/sys/net/ipv6/conf/$IFACE/autoconf
+```
+
+*	The pre-up command disables SLAAC (where required).
+
 # Resources
 
 *	[ipv6.he.net/certification/](https://ipv6.he.net/certification/)
