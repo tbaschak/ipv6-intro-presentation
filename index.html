@@ -120,10 +120,12 @@
 <li>Many components require use of /64 subnet size.</li>
 </ul>
 </section>
-<section id="dhcp---ra-dhcpv6" class="slide level1">
-<h1>DHCP -&gt; RA / DHCPv6</h1>
+<section id="dhcp---slaac-dhcpv6" class="slide level1">
+<h1>DHCP -&gt; SLAAC / DHCPv6</h1>
 <ul>
 <li>DHCP for autoconfiguration has been replaced with SLAAC, and/or DHCPv6.</li>
+<li>SLAAC uses Neighbor Discovery, ICMPv6 RA discovery, to autoconfigure addresses.</li>
+<li>DHCPv6 does not currently send a default gateway, so SLAAC/RA is still required.</li>
 <li>IPv4 untrusted layer 2 issues have followed to IPv6.
 <ul>
 <li>Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6</li>
