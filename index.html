@@ -1,1 +1,173 @@
-ipv6-intro.html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Theo Baschak" />
+  <title>IPv6 Intro</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">IPv6 Intro</h1>
+    <h2 class="author">Theo Baschak</h2>
+    <h3 class="date">SkullSpace Hackathon</h3>
+</section>
+
+<section id="online-html5-slides" class="slide level1">
+<h1>Online HTML5 Slides</h1>
+<p>Presentation source/download available at <a href="https://github.com/tbaschak/ipv6-intro-presentation">github.com/tbaschak/ipv6-intro-presentation</a></p>
+</section>
+<section id="who-i-am" class="slide level1">
+<h1>Who I Am</h1>
+<ul>
+<li class="fragment">Employed by VOI Network Solutions – primary administrator of Winnipeg-based commercial Internet Service Provider and carrier.</li>
+<li class="fragment">Avid opensource software user/fanatic, and recently, contributor.</li>
+<li class="fragment">Involved with both Internet Exchanges in Winnipeg.
+<ul>
+<li class="fragment">Elected member on the Board of Directors for the Manitoba Internet Exchange (MBIX).</li>
+<li class="fragment">Also involved with the creation and technical operations of the Winnipeg Internet Exchange (WpgIX).</li>
+</ul></li>
+</ul>
+</section>
+<section id="my-ipv6-experience" class="slide level1">
+<h1>My IPv6 Experience</h1>
+<ul>
+<li class="fragment">Running IPv6 since 2004
+<ul>
+<li class="fragment">Over tunnels for many, many years up until getting native IPv6</li>
+<li class="fragment">Native IPv6 since December 2012, via Voi Networks BGP address space</li>
+</ul></li>
+<li class="fragment">My internal network currently runs OSPFv3 (IPv6 OSPF)
+<ul>
+<li class="fragment">2604:4280:d00d::/48</li>
+</ul></li>
+</ul>
+</section>
+<section id="ipv6-address-basics" class="slide level1">
+<h1>IPv6 Address Basics</h1>
+<ul>
+<li class="fragment">The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.</li>
+<li class="fragment">Like IPv4, Network and Host bits.</li>
+<li class="fragment">Unlike IPv4, Network and Host bits are usually equal (at least on a /64 network)</li>
+</ul>
+</section>
+<section id="rfc4291-ipv6-addressing" class="slide level1">
+<h1>rfc4291: IPv6 Addressing</h1>
+<ul>
+<li class="fragment">Valid Host Addresses
+<ul>
+<li class="fragment">2001:DB8:0:0:8:800:200C:417A</li>
+<li class="fragment">2001:DB8::8:800:200C:417A</li>
+<li class="fragment">2604:4280:d00d::80</li>
+<li class="fragment">2604:4280:d00d:200::1</li>
+<li class="fragment">::1 (loopback)</li>
+<li class="fragment">:: (0:0:0:0:0:0:0:0)</li>
+</ul></li>
+</ul>
+</section>
+<section id="rfc4291-cont" class="slide level1">
+<h1>rfc4291 (cont)</h1>
+<ul>
+<li class="fragment">Valid Network Addresses
+<ul>
+<li class="fragment">2001:0DB8:0000:CD30:0000:0000:0000:0000/60</li>
+<li class="fragment">2001:0DB8::CD30:0:0:0:0/60</li>
+<li class="fragment">2001:0DB8:0:CD30::/60</li>
+<li class="fragment">::/0</li>
+</ul></li>
+</ul>
+</section>
+<section id="ipv6-subnetting-vs-ipv4" class="slide level1">
+<h1>IPv6 Subnetting vs IPv4</h1>
+<ul>
+<li class="fragment">Where a /24 is often used with IPv4, /64’s are encouraged with IPv6.
+<ul>
+<li class="fragment">This allows various autoconfiguration mechanisms to function.</li>
+<li class="fragment">a /48 (Recommended network size for one site) allows 64k /64’s</li>
+<li class="fragment"></li>
+</ul></li>
+</ul>
+</section>
+<section id="resources" class="slide level1">
+<h1>Resources</h1>
+<ul>
+<li class="fragment"><a href="https://ipv6.he.net/certification/">ipv6.he.net/certification/</a></li>
+<li class="fragment"><a href="https://www.sixxs.net/tools/grh/ula/">www.sixxs.net/tools/grh/ula/</a></li>
+<li class="fragment"><a href="https://code.google.com/p/ipvfoo/">ipvfoo chrome extension</a></li>
+<li class="fragment"><a href="https://addons.mozilla.org/en-US/firefox/addon/ipvfox/">ipvfox firefox extension</a></li>
+</ul>
+</section>
+<section id="useful-ipv6-rfcs" class="slide level1">
+<h1>Useful IPv6 RFCs</h1>
+<ul>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc2460">RFC2460: IPv6 Specification</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc6434">RFC6434: IPv6 Node Requirements</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4291">RFC4291: IPv6 Addressing Architecture</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc3484">RFC3484: Default Address Selection</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4193">RFC4193: Unique Local IPv6 Unicast Addresses (ULA)</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4443">RFC4443: ICMPv6</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc3315">RFC3315: DHCPv6 client</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4862">RFC4862: SLAAC</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4861">RFC4861: Neighbor Discovery</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc6177">RFC6177: IPv6 Address Assignment to End Sites</a></li>
+</ul>
+</section>
+<section id="even-more-ipv6-rfcs" class="slide level1">
+<h1>Even More IPv6 RFCs</h1>
+<ul>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc1981">RFC1981: Path MTU Discovery</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc4213">RFC4213: Basic Transition Mechanisms for IPv6 Hosts and Routers</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc3596">RFC3596: DNS protocol extensions for incorporating IPv6 DNS resource records</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc2671">RFC2671: DNS message extension mechanism</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc3226">RFC3226: DNS message size requirements</a></li>
+<li class="fragment"><a href="http://tools.ietf.org/html/rfc5095">RFC5095: Deprecation of Type 0 Routing Headers in IPv6</a></li>
+<li class="fragment">More info at: http://www.ripe.net/ripe/docs/ripe-554</li>
+<li class="fragment">BIG GIANT list at: http://ipv6now.com.au/RFC.php</li>
+</ul>
+</section>
+<section id="the-end" class="slide level1">
+<h1>The End</h1>
+<p>Presentation source/download available at <a href="https://github.com/tbaschak/ipv6-intro-presentation">github.com/tbaschak/ipv6-intro-presentation</a></p>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'default', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>
