@@ -23,7 +23,7 @@ slides: cleanslides
 #	pandoc --self-contained -s -S -i -t slidy --mathjax $(SRCS) -o $(SLIDEOBJS)   ## nice and simple
 
 #	pandoc --self-contained -s -S -i -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
-	pandoc -V theme=default -s -S -i -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
+	pandoc -V theme=default -s -S -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
 
 clean: cleanpdf cleanslides
 

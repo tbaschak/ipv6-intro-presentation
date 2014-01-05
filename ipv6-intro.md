@@ -15,28 +15,22 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	Also involved with the creation and technical operations of WpgIX.
 *	Avid opensource software user/fanatic, and recently, contributor.
 
-# My Own IPv6 Experience
+# My Life with IPv6
 
 *	Running IPv6 since ~2004.
 	*	Over tunnels for many, many years.
 	*	Native IPv6 since December 2012, via Voi Networks BGP address space.
-*	My internal network currently runs OSPFv3 (IPv6 OSPF).
+*	My own network currently runs IPv6/OSPFv3 routing protocol.
 	*	2604:4280:d00d::/48
+	*	Most ciscodude.net/henchman21.net services are IPv4/IPv6 enabled.
 
 # IPv6 Address Basics
 
 *	The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.
 *	Like IPv4, Network and Host bits.
-*	Unlike IPv4, Network and Host bits are usually equal (at least on a /64 network).
+*	Unlike IPv4, Network and Host bits are usually equal.
 
-# IPv6 Address Sample
-
-*	My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1
-	*	Prefix: 2604:4280:d00d
-	*	Network: $Prefix:202
-	*	Host: 1986:feb8:ccb0:78e1
-
-# rfc4291: IPv6 Addressing
+# IPv6 Addressing (rfc4291)
 
 *	Valid Host Addresses
 	*	2001:DB8:0:0:8:800:200C:417A
@@ -45,6 +39,13 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	2604:4280:d00d:200::1
 	*	::1 (loopback)
 	*	:: (0:0:0:0:0:0:0:0)
+
+# IPv6 Address Sample
+
+*	My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1
+	*	Prefix: 2604:4280:d00d
+	*	Network: $Prefix:202
+	*	Host: 1986:feb8:ccb0:78e1
 
 # rfc4291 (cont)
 
@@ -64,7 +65,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	Makes use of a number of predefined multicast addresses (much like routing protocols)
 	*	all-nodes (FF02::1)
 	*	all-routers (FF02::2)
-*	
+*	Many components require use of /64 subnet size.
 
 # DHCP -> RA / DHCPv6
 
@@ -72,12 +73,24 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	IPv4 untrusted layer 2 issues have followed to IPv6.
 	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6
 
-# IPv6 Subnetting vs IPv4
+# IPv4 vs IPv6 Subnets
 
-*	Where a /24 is often used with IPv4, /64's are encouraged with IPv6.
-	*	This allows various autoconfiguration mechanisms to function.
-	*	a /48 (Recommended network size for one site) allows 64k /64's
-	*	
+*	Where a /24 is often used on LANs with IPv4, /64's are strongly encouraged with IPv6.
+*	Recommended Site Prefix: /48 allows 64k /64's.
+*	Residential providers often using DHCP6pd to allocate /60's to Customer routers (Including Xplornet).
+*	Not using a /64 subnet prefix length will break many features of IPv6, including Neighbor Discovery, Secure Neighbor Discovery [[RFC3971]](http://tools.ietf.org/html/rfc3971), privacy extensions [[RFC4941]](http://tools.ietf.org/html/rfc4941), and Site Multihoming by IPv6 Intermediation [SHIM6], among others.
+
+# Privacy Addresses (rfc4941)
+
+*	Extension to SLAAC.
+*	New random secondary privacy addresses regenerated periodically.
+*	Can cause havok for Session based applications which tie the session to your IP (which is recommended to prevent session hijacking).
+
+# ULA (rfc4193)
+
+*	Stands for Unique Local IPv6 Unicast Addresses.
+*	Similar to RFC1918 addresses, for use within LANs and/or isolated/non-connected networks.
+*	Supposed to be generated using a specific algorithm, they are guaranteed of being somewhat globally unique as well.
 
 # Resources
 
@@ -109,6 +122,10 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	[RFC5095: Deprecation of Type 0 Routing Headers in IPv6](http://tools.ietf.org/html/rfc5095)
 *	More info at: http://www.ripe.net/ripe/docs/ripe-554
 *	BIG GIANT list at: http://ipv6now.com.au/RFC.php
+
+# Questions
+
+*	Question & Answer period as time permits.
 
 # The End
 
