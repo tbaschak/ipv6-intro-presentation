@@ -67,9 +67,11 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	all-routers (FF02::2)
 *	Many components require use of /64 subnet size.
 
-# DHCP -> RA / DHCPv6
+# DHCP -> SLAAC / DHCPv6
 
 *	DHCP for autoconfiguration has been replaced with SLAAC, and/or DHCPv6.
+*	SLAAC uses Neighbor Discovery, ICMPv6 RA discovery, to autoconfigure addresses.
+*	DHCPv6 does not currently send a default gateway, so SLAAC/RA is still required.
 *	IPv4 untrusted layer 2 issues have followed to IPv6.
 	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6
 
