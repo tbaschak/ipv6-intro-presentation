@@ -35,14 +35,14 @@ cleanslides:
 
 gh-pages: slides pdf
 	git add ipv6-intro.html ipv6-intro.pdf
-	git commit -m 'generate latest show via Makefile'
+	git commit -m 'generate latest slides via Makefile'
 	git push -u origin master
 	git checkout gh-pages
 	git checkout master -- ipv6-intro.html
 	git checkout master -- ipv6-intro.pdf
 	cp ipv6-intro.html index.html
 	git add ipv6-intro.html ipv6-intro.pdf index.html
-	git commit -m 'pull in latest changes from master branch'
+	git commit -m 'pull in latest generated slides from master branch'
 	git push -u origin gh-pages
 	git checkout master
 	@echo Slides generated and pushed to gh-pages branch
