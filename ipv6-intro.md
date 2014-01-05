@@ -1,8 +1,6 @@
 % IPv6 Intro
 % Theo Baschak
-% SkullSpace
-
-
+% SkullSpace Hackathon
 
 
 # Online HTML5 Slides
@@ -12,17 +10,17 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 # Who I Am
 
 *	Employed by VOI Network Solutions -- primary administrator of Winnipeg-based commercial Internet Service Provider and carrier.
-*	Avid Open Source Software user/fanatic, and recently, contributor.
+*	Avid opensource software user/fanatic, and recently, contributor.
 *	Involved with both Internet Exchanges in Winnipeg.
 	*	Elected member on the Board of Directors for the Manitoba Internet Exchange (MBIX).
 	*	Also involved with the creation and technical operations of the Winnipeg Internet Exchange (WpgIX).
 
 # My IPv6 Experience
 
-*	Using IPv6 since 2004
-	*	Over tunnels for many, many years up untit getting native IPv6
+*	Running IPv6 since 2004
+	*	Over tunnels for many, many years up until getting native IPv6
 	*	Native IPv6 since December 2012, via Voi Networks BGP address space
-*	My internal network currently runs OSPF and OSPFv3 (IPv6 OSPF)
+*	My internal network currently runs OSPFv3 (IPv6 OSPF)
 	*	2604:4280:d00d::/48
 
 # IPv6 Address Basics
@@ -59,6 +57,9 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 # Resources
 
 *	[ipv6.he.net/certification/](https://ipv6.he.net/certification/)
+*	[www.sixxs.net/tools/grh/ula/](https://www.sixxs.net/tools/grh/ula/)
+*	[ipvfoo chrome extension](https://code.google.com/p/ipvfoo/)
+*	[ipvfox firefox extension](https://addons.mozilla.org/en-US/firefox/addon/ipvfox/)
 
 # Useful IPv6 RFCs
 
@@ -71,6 +72,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	[RFC3315: DHCPv6 client](http://tools.ietf.org/html/rfc3315)
 *	[RFC4862: SLAAC](http://tools.ietf.org/html/rfc4862)
 *	[RFC4861: Neighbor Discovery](http://tools.ietf.org/html/rfc4861)
+*	[RFC6177: IPv6 Address Assignment to End Sites](http://tools.ietf.org/html/rfc6177)
 
 # Even More IPv6 RFCs
 

@@ -16,14 +16,14 @@ all: clean slides $(PDFOBJS)
 #%.html:	%.md
 #	$(PANDOC) $< -o $@
 
-pdf: slides cleanpdf $(PDFOBJS)
+pdf: cleanpdf $(PDFOBJS)
 
 slides: cleanslides
 #	pandoc -s -S -i -t dzslides --mathjax $(SRCS) -o $(SLIDEOBJS)
 #	pandoc --self-contained -s -S -i -t slidy --mathjax $(SRCS) -o $(SLIDEOBJS)   ## nice and simple
 
 #	pandoc --self-contained -s -S -i -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
-	pandoc -s -S -i -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
+	pandoc -V theme=default -s -S -i -t revealjs --mathjax $(SRCS) -o $(SLIDEOBJS)
 
 clean: cleanpdf cleanslides
 
