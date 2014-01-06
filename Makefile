@@ -2,7 +2,6 @@ SRCS		= ipv6-intro.md
 PDFOBJS		= $(SRCS:.md=.pdf)
 SLIDEOBJS	= $(SRCS:.md=.html)
 PANDOC		= pandoc
-#PFLAGS		= -V geometry:margin=0.5in
 PFLAGS		= -t beamer
 
 .PHONY: all clean slides pdf 
@@ -12,9 +11,6 @@ all: clean slides $(PDFOBJS)
 
 %.pdf:	%.md
 	$(PANDOC) $(PFLAGS) $< -o $@
-
-#%.html:	%.md
-#	$(PANDOC) $< -o $@
 
 pdf: cleanpdf $(PDFOBJS)
 
