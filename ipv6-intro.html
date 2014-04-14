@@ -63,6 +63,8 @@
 <li>The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.</li>
 <li>Like IPv4, Network and Host bits.</li>
 <li>Unlike IPv4, Network and Host bits are usually equal.</li>
+<li>1 or more 0 blocks can be shortened/replaced with :: but only once per address.</li>
+<li>Leading zero’s can be dropped.</li>
 </ul>
 </section>
 <section id="ipv6-addressing-rfc4291" class="slide level1">
@@ -70,22 +72,22 @@
 <ul>
 <li>Valid Host Addresses
 <ul>
-<li>2001:DB8:0:0:8:800:200C:417A</li>
-<li>2001:DB8::8:800:200C:417A</li>
-<li>2604:4280:d00d::80</li>
-<li>2604:4280:d00d:200::1</li>
-<li>::1 (loopback)</li>
-<li>:: (0:0:0:0:0:0:0:0)</li>
+<li>2001:0DB8:0:0:8:0800:200C:417A = 2001:DB8::8:800:200C:417A</li>
+<li>2604:4280:d00d::443 = 2604:4280:d00d:0:0:0:0:443</li>
+<li>2604:4280:14:866::225:2 = 2604:4280:14:866:0:0:225:2</li>
+<li>::1 (loopback) = 0:0:0:0:0:0:0:1</li>
+<li>:: = 0:0:0:0:0:0:0:0</li>
 </ul></li>
 </ul>
 </section>
 <section id="ipv6-address-sample" class="slide level1">
 <h1>IPv6 Address Sample</h1>
 <ul>
-<li>My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1
+<li>My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1</li>
+<li>Lets break that down:
 <ul>
 <li>Prefix: 2604:4280:d00d</li>
-<li>Network: $Prefix:202</li>
+<li>Network: $PREFIX:202</li>
 <li>Host: 1986:feb8:ccb0:78e1</li>
 </ul></li>
 </ul>
@@ -120,8 +122,8 @@
 <li>Many components require use of /64 subnet size.</li>
 </ul>
 </section>
-<section id="dhcp---slaac-dhcpv6" class="slide level1">
-<h1>DHCP -&gt; SLAAC / DHCPv6</h1>
+<section id="slaac-dhcpv6" class="slide level1">
+<h1>SLAAC / DHCPv6</h1>
 <ul>
 <li>DHCP for autoconfiguration has been replaced with SLAAC, and/or DHCPv6.</li>
 <li>SLAAC uses Neighbor Discovery, ICMPv6 RA discovery, to autoconfigure addresses.</li>
@@ -133,8 +135,8 @@
 </ul></li>
 </ul>
 </section>
-<section id="ipv4-vs-ipv6-subnets" class="slide level1">
-<h1>IPv4 vs IPv6 Subnets</h1>
+<section id="v4-vs-v6-subnets" class="slide level1">
+<h1>v4 vs v6 Subnets</h1>
 <ul>
 <li>Where a /24 is often used on LANs with IPv4, /64’s are strongly encouraged with IPv6.</li>
 <li>Recommended Site Prefix: /48 allows 64k /64’s.</li>
@@ -142,12 +144,37 @@
 <li>Not using a /64 subnet prefix length will break many features of IPv6, including Neighbor Discovery, Secure Neighbor Discovery <a href="http://tools.ietf.org/html/rfc3971">[RFC3971]</a>, privacy extensions <a href="http://tools.ietf.org/html/rfc4941">[RFC4941]</a>, and Site Multihoming by IPv6 Intermediation [SHIM6], among others.</li>
 </ul>
 </section>
+<section id="big-subnetting" class="slide level1">
+<h1>Big Subnetting</h1>
+<pre><code>2001:db8:c0d0::/44  Example Multisite Company
+    2001:db8:c0d0::/48  Primary Office - Site 1
+        2001:db8:c0d0:20::/64   VLAN20 Users
+        2001:db8:c0d0:25::/64   VLAN25 Users Wireless
+        2001:db8:c0d0:30::/64   VLAN30 Phones
+        2001:db8:c0d0:300::/64  VLAN300 Guest
+    2001:db8:c0da::/48  Branch Office - Site 11
+        2001:db8:c0da:20::/64   VLAN20 Users
+        2001:db8:c0da:25::/64   VLAN25 Users Wireless
+        2001:db8:c0da:30::/64   VLAN30 Phones
+        2001:db8:c0da:300::/64  VLAN300 Guest
+    2001:db8:c0de::/48  Server Colo - Site 15
+        2001:db8:c0de:10::/64   VLAN10 Servers
+            2001:db8:c0de:10::1     Redundant Default Gateway 1
+            2001:db8:c0de:10::2     Redundant Default Gateway 2
+            2001:db8:c0de:10::25    SMTP Server
+            2001:db8:c0de:10::1:53  Auth DNS 1
+            2001:db8:c0de:10::2:53  Auth DNS 2
+            2001:db8:c0de:10::3:53  Caching DNS 1
+            2001:db8:c0de:10::4:53  Caching DNS 2
+            2001:db8:c0de:10::80    Webserver
+            2001:db8:c0de:10::110   POP3 Server</code></pre>
+</section>
 <section id="privacy-addresses-rfc4941" class="slide level1">
 <h1>Privacy Addresses (rfc4941)</h1>
 <ul>
 <li>Extension to SLAAC.</li>
 <li>New random secondary privacy addresses regenerated periodically.</li>
-<li>Can cause havok for Session based applications which tie the session to your IP (which is recommended to prevent session hijacking).</li>
+<li>Can cause havok for Session based applications which tie the session to your IP (which is often recommended to prevent session hijacking).</li>
 </ul>
 </section>
 <section id="ula-rfc4193" class="slide level1">
