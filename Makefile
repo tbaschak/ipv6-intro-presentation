@@ -6,15 +6,15 @@ PFLAGS		= -t beamer
 
 .PHONY: all clean slides pdf 
 
-all: clean slides $(PDFOBJS)
+all: slides $(PDFOBJS)
 	@echo Slides and PDF generated
 
 %.pdf:	%.md
 	$(PANDOC) $(PFLAGS) $< -o $@
 
-pdf: cleanpdf $(PDFOBJS)
+pdf:  $(PDFOBJS)
 
-slides: cleanslides
+slides: 
 #	pandoc -s -S -i -t dzslides --mathjax $(SRCS) -o $(SLIDEOBJS)
 #	pandoc --self-contained -s -S -i -t slidy --mathjax $(SRCS) -o $(SLIDEOBJS)   ## nice and simple
 

@@ -29,22 +29,24 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.
 *	Like IPv4, Network and Host bits.
 *	Unlike IPv4, Network and Host bits are usually equal.
+*	1 or more 0 blocks can be shortened/replaced with :: but only once per address.
+*	Leading zero's can be dropped. 
 
 # IPv6 Addressing (rfc4291)
 
 *	Valid Host Addresses
-	*	2001:DB8:0:0:8:800:200C:417A
-	*	2001:DB8::8:800:200C:417A
-	*	2604:4280:d00d::80
-	*	2604:4280:d00d:200::1
-	*	::1 (loopback)
-	*	:: (0:0:0:0:0:0:0:0)
+	*	2001:0DB8:0:0:8:0800:200C:417A = 2001:DB8::8:800:200C:417A
+	*	2604:4280:d00d::443 = 2604:4280:d00d:0:0:0:0:443
+	*	2604:4280:14:866::225:2 = 2604:4280:14:866:0:0:225:2
+	*	::1 (loopback) = 0:0:0:0:0:0:0:1
+	*	:: = 0:0:0:0:0:0:0:0
 
 # IPv6 Address Sample
 
 *	My IPv6 privacy address at the time of writing: 2604:4280:d00d:202:1986:feb8:ccb0:78e1
+*	Lets break that down:
 	*	Prefix: 2604:4280:d00d
-	*	Network: $Prefix:202
+	*	Network: $PREFIX:202
 	*	Host: 1986:feb8:ccb0:78e1
 
 # rfc4291 (cont)
@@ -67,7 +69,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	all-routers (FF02::2)
 *	Many components require use of /64 subnet size.
 
-# DHCP -> SLAAC / DHCPv6
+# SLAAC / DHCPv6
 
 *	DHCP for autoconfiguration has been replaced with SLAAC, and/or DHCPv6.
 *	SLAAC uses Neighbor Discovery, ICMPv6 RA discovery, to autoconfigure addresses.
@@ -76,18 +78,45 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	Rogue DHCP -&gt; Rogue RA &amp; Rogue DHCPv6.
 	*	DHCP Snooping -&gt; RA Guard in switches to mitigate.
 
-# IPv4 vs IPv6 Subnets
+# v4 vs v6 Subnets
 
 *	Where a /24 is often used on LANs with IPv4, /64's are strongly encouraged with IPv6.
 *	Recommended Site Prefix: /48 allows 64k /64's.
 *	Residential providers often using DHCP6pd to allocate /60's to Customer routers (Including Xplornet).
 *	Not using a /64 subnet prefix length will break many features of IPv6, including Neighbor Discovery, Secure Neighbor Discovery [[RFC3971]](http://tools.ietf.org/html/rfc3971), privacy extensions [[RFC4941]](http://tools.ietf.org/html/rfc4941), and Site Multihoming by IPv6 Intermediation [SHIM6], among others.
 
+# Big Subnetting
+
+```
+2001:db8:c0d0::/44	Example Multisite Company
+	2001:db8:c0d0::/48	Primary Office - Site 1
+		2001:db8:c0d0:20::/64	VLAN20 Users
+		2001:db8:c0d0:25::/64	VLAN25 Users Wireless
+		2001:db8:c0d0:30::/64	VLAN30 Phones
+		2001:db8:c0d0:300::/64	VLAN300 Guest
+	2001:db8:c0da::/48	Branch Office - Site 11
+		2001:db8:c0da:20::/64	VLAN20 Users
+		2001:db8:c0da:25::/64	VLAN25 Users Wireless
+		2001:db8:c0da:30::/64	VLAN30 Phones
+		2001:db8:c0da:300::/64	VLAN300 Guest
+	2001:db8:c0de::/48	Server Colo - Site 15
+		2001:db8:c0de:10::/64	VLAN10 Servers
+			2001:db8:c0de:10::1		Redundant Default Gateway 1
+			2001:db8:c0de:10::2		Redundant Default Gateway 2
+			2001:db8:c0de:10::25	SMTP Server
+			2001:db8:c0de:10::1:53	Auth DNS 1
+			2001:db8:c0de:10::2:53	Auth DNS 2
+			2001:db8:c0de:10::3:53	Caching DNS 1
+			2001:db8:c0de:10::4:53	Caching DNS 2
+			2001:db8:c0de:10::80	Webserver
+			2001:db8:c0de:10::110	POP3 Server
+```
+
 # Privacy Addresses (rfc4941)
 
 *	Extension to SLAAC.
 *	New random secondary privacy addresses regenerated periodically.
-*	Can cause havok for Session based applications which tie the session to your IP (which is recommended to prevent session hijacking).
+*	Can cause havok for Session based applications which tie the session to your IP (which is often recommended to prevent session hijacking).
 
 # ULA (rfc4193)
 
