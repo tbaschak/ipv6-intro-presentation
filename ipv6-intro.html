@@ -57,18 +57,39 @@
 </ul></li>
 </ul>
 </section>
+<section id="nat-is-stupid" class="slide level1">
+<h1>NAT IS STUPID</h1>
+<ul>
+<li>From a network admin’s perspective at least.</li>
+<li>NAT is NOT a firewall, it rewrites/masquerades source addresses in IP headers, and keeps track of those translations.</li>
+<li>Issues that arise from breaken end-to-end connectivity from NAT:
+<ul>
+<li>Accepting direct Inbound connections of any sort.
+<ul>
+<li>Direct Audio / Video Conferencing.</li>
+<li>P2P Applications (Online Games, Skype, Torrents, etc).</li>
+</ul></li>
+<li>Accountability - Logs/Monitoring outside a NAT lose valuable source details.</li>
+</ul></li>
+</ul>
+</section>
 <section id="ipv6-address-basics" class="slide level1">
 <h1>IPv6 Address Basics</h1>
 <ul>
 <li>The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.</li>
-<li>Like IPv4, Network and Host bits.</li>
+<li>Like IPv4, Network and Host bits.
+<ul>
 <li>Unlike IPv4, Network and Host bits are usually equal.</li>
-<li>1 or more 0 blocks can be shortened/replaced with :: but only once per address.</li>
+</ul></li>
+<li>1 or more 0 blocks can be shortened/replaced with ::
+<ul>
+<li>Only once per address though.</li>
+</ul></li>
 <li>Leading zero’s can be dropped.</li>
 </ul>
 </section>
-<section id="ipv6-addressing-rfc4291" class="slide level1">
-<h1>IPv6 Addressing (rfc4291)</h1>
+<section id="rfc4291-addressing" class="slide level1">
+<h1>rfc4291: Addressing</h1>
 <ul>
 <li>Valid Host Addresses
 <ul>
@@ -93,7 +114,7 @@
 </ul>
 </section>
 <section id="rfc4291-cont" class="slide level1">
-<h1>rfc4291 (cont)</h1>
+<h1>rfc4291: (cont)</h1>
 <ul>
 <li>Valid Network Addresses
 <ul>
@@ -104,8 +125,8 @@
 </ul></li>
 </ul>
 </section>
-<section id="arp---nd-rfc4861" class="slide level1">
-<h1>ARP -&gt; ND (rfc4861)</h1>
+<section id="rfc4861-arp---nd" class="slide level1">
+<h1>rfc4861: ARP -&gt; ND</h1>
 <ul>
 <li>Uses link-layer multicast instead of broadcast.</li>
 <li>Subcomponents include
@@ -144,10 +165,11 @@
 <li>Not using a /64 subnet prefix length will break many features of IPv6, including Neighbor Discovery, Secure Neighbor Discovery <a href="http://tools.ietf.org/html/rfc3971">[RFC3971]</a>, privacy extensions <a href="http://tools.ietf.org/html/rfc4941">[RFC4941]</a>, and Site Multihoming by IPv6 Intermediation [SHIM6], among others.</li>
 </ul>
 </section>
-<section id="big-subnetting" class="slide level1">
-<h1>Big Subnetting</h1>
+<section id="subnet-example" class="slide level1">
+<h1>Subnet Example</h1>
 <pre><code>2001:db8:c0d0::/44  Example Multisite Company
     2001:db8:c0d0::/48  Primary Office - Site 1
+        2001:db8:c0d0:10::/64   VLAN10 Servers
         2001:db8:c0d0:20::/64   VLAN20 Users
         2001:db8:c0d0:25::/64   VLAN25 Users Wireless
         2001:db8:c0d0:30::/64   VLAN30 Phones
@@ -188,12 +210,24 @@
 </ul></li>
 </ul>
 </section>
+<section id="transition-mechanisms" class="slide level1">
+<h1>Transition Mechanisms</h1>
+<ul>
+<li>Many methods of translating/tunneling V4 over V6 and vice versa:
+<ul>
+<li>Teredo (v6, over v4 UDP/3544)</li>
+<li>NAT64/DNS64 (v4, over v6)</li>
+<li>Stateless IP/ICMP Translation/SIIT (::ffff:0:a.b.c.d)</li>
+<li>6rd (v6, over v4)</li>
+</ul></li>
+</ul>
+</section>
 <section id="freebsd-server" class="slide level1">
 <h1>FreeBSD Server</h1>
 <ul>
 <li><p><code>/etc/rc.conf</code> snippet</p>
-<pre><code>ifconfig_em0_ipv6=&quot;inet6 2604:4280:d00d::443/64&quot;
-ipv6_defaultrouter=&quot;2604:4280:d00d::1&quot;</code></pre></li>
+<pre><code>ifconfig_em0_ipv6=&quot;inet6 2001:db8:c0de:10::443/64&quot;
+ipv6_defaultrouter=&quot;2001:db8:c0de:10::1&quot;</code></pre></li>
 <li>In FreeBSD <code>ipv6_enable=“yes”</code> is required to enable SLAAC.</li>
 <li><p>SLAAC addresses can cause issues for mail and other servers where outbound traffic is expected to originate from a specific address.</p></li>
 </ul>
@@ -203,8 +237,8 @@ ipv6_defaultrouter=&quot;2604:4280:d00d::1&quot;</code></pre></li>
 <ul>
 <li><p><code>/etc/network/interfaces</code> snippet</p>
 <pre><code>iface eth0 inet6 static
-address 2604:4280:D00D::78
-gateway 2604:4280:D00D::1
+address 2001:db8:c0de:10::78
+gateway 2001:db8:c0de:10::1
 netmask 64
 pre-up echo 0 &gt; /proc/sys/net/ipv6/conf/$IFACE/autoconf</code></pre></li>
 <li><p>The pre-up command disables SLAAC (where required).</p></li>
