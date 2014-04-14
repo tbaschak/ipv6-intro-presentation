@@ -24,15 +24,26 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	2604:4280:d00d::/48
 	*	Most ciscodude.net/henchman21.net services are IPv4/IPv6 enabled.
 
+# NAT IS STUPID
+
+*	From a network admin's perspective at least.
+*	NAT is NOT a firewall, it rewrites/masquerades source addresses in IP headers, and keeps track of those translations.
+*	Issues that arise from breaken end-to-end connectivity from NAT:
+	*	Accepting direct Inbound connections of any sort.
+		*	Direct Audio / Video Conferencing.
+		*	P2P Applications (Online Games, Skype, Torrents, etc).
+	*	Accountability - Logs/Monitoring outside a NAT lose valuable source details.
+
 # IPv6 Address Basics
 
 *	The IPv6 address space is 128-bits (2^128) in size, containing 340,282,366,920,938,463,463,374,607,431,768,211,456 IPv6 addresses.
 *	Like IPv4, Network and Host bits.
-*	Unlike IPv4, Network and Host bits are usually equal.
-*	1 or more 0 blocks can be shortened/replaced with :: but only once per address.
-*	Leading zero's can be dropped. 
+	*	Unlike IPv4, Network and Host bits are usually equal.
+*	1 or more 0 blocks can be shortened/replaced with ::
+	*	Only once per address though.
+*	Leading zero's can be dropped.
 
-# IPv6 Addressing (rfc4291)
+# rfc4291: Addressing
 
 *	Valid Host Addresses
 	*	2001:0DB8:0:0:8:0800:200C:417A = 2001:DB8::8:800:200C:417A
@@ -49,7 +60,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	Network: $PREFIX:202
 	*	Host: 1986:feb8:ccb0:78e1
 
-# rfc4291 (cont)
+# rfc4291: (cont)
 
 *	Valid Network Addresses
 	*	2001:0DB8:0000:CD30:0000:0000:0000:0000/60
@@ -57,7 +68,7 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 	*	2001:0DB8:0:CD30::/60
 	*	::/0
 
-# ARP -> ND (rfc4861)
+# rfc4861: ARP -> ND
 
 *	Uses link-layer multicast instead of broadcast.
 *	Subcomponents include
@@ -85,11 +96,12 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	Residential providers often using DHCP6pd to allocate /60's to Customer routers (Including Xplornet).
 *	Not using a /64 subnet prefix length will break many features of IPv6, including Neighbor Discovery, Secure Neighbor Discovery [[RFC3971]](http://tools.ietf.org/html/rfc3971), privacy extensions [[RFC4941]](http://tools.ietf.org/html/rfc4941), and Site Multihoming by IPv6 Intermediation [SHIM6], among others.
 
-# Big Subnetting
+# Subnet Example
 
 ```
 2001:db8:c0d0::/44	Example Multisite Company
 	2001:db8:c0d0::/48	Primary Office - Site 1
+		2001:db8:c0d0:10::/64	VLAN10 Servers
 		2001:db8:c0d0:20::/64	VLAN20 Users
 		2001:db8:c0d0:25::/64	VLAN25 Users Wireless
 		2001:db8:c0d0:30::/64	VLAN30 Phones
@@ -125,13 +137,21 @@ Presentation source/download available at [github.com/tbaschak/ipv6-intro-presen
 *	Supposed to be generated using a specific algorithm, they are guaranteed of being somewhat globally unique as well.
 	*	[SiXXs ULA Generator](https://www.sixxs.net/tools/grh/ula/)
 
+# Transition Mechanisms
+
+*	Many methods of translating/tunneling V4 over V6 and vice versa:
+	*	Teredo (v6, over v4 UDP/3544)
+	*	NAT64/DNS64 (v4, over v6)
+	*	Stateless IP/ICMP Translation/SIIT (::ffff:0:a.b.c.d)
+	*	6rd (v6, over v4)
+
 # FreeBSD Server
 
 *	<code>/etc/rc.conf</code> snippet
 
 	```
-ifconfig_em0_ipv6="inet6 2604:4280:d00d::443/64"
-ipv6_defaultrouter="2604:4280:d00d::1"
+ifconfig_em0_ipv6="inet6 2001:db8:c0de:10::443/64"
+ipv6_defaultrouter="2001:db8:c0de:10::1"
 ```
 
 *	In FreeBSD <code>ipv6_enable="yes"</code> is required to enable SLAAC.
@@ -143,8 +163,8 @@ ipv6_defaultrouter="2604:4280:d00d::1"
 
 	```
 iface eth0 inet6 static
-	address 2604:4280:D00D::78
-	gateway 2604:4280:D00D::1
+	address 2001:db8:c0de:10::78
+	gateway 2001:db8:c0de:10::1
 	netmask 64
 	pre-up echo 0 > /proc/sys/net/ipv6/conf/$IFACE/autoconf
 ```
