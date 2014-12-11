@@ -2,7 +2,6 @@
 % Theo Baschak
 % SkullSpace Hackathon
 
-
 # Online HTML5 Slides
 
 Presentation source/download available at [github.com/tbaschak/ipv6-intro-presentation](https://github.com/tbaschak/ipv6-intro-presentation)
